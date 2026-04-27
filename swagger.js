@@ -14,6 +14,7 @@ const doc = {
     host: process.env.HOST || "localhost:8000",
     schemes: ["https", "http"],
     tags: [
+        { name: "Healthcheck", description: "System health monitoring" },
         { name: "Users", description: "User management and authentication" },
         { name: "Videos", description: "Video upload and management" },
         { name: "Comments", description: "Comment on videos and tweets" },
@@ -21,8 +22,7 @@ const doc = {
         { name: "Playlists", description: "Playlist creation and management" },
         { name: "Tweets", description: "Tweet management" },
         { name: "Subscriptions", description: "Subscribe to channels" },
-        { name: "Dashboard", description: "Channel dashboard statistics" },
-        { name: "Healthcheck", description: "System health monitoring" }
+        { name: "Dashboard", description: "Channel dashboard statistics" }
     ],
     securityDefinitions: {
         bearerAuth: {

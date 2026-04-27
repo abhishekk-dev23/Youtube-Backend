@@ -1,1080 +1,1175 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "Youtube Backend API",
-        "description": "API documentation for the Youtube Backend application",
-        "version": "1.0.0"
+  "swagger": "2.0",
+  "info": {
+    "title": "Youtube Backend API",
+    "description": "API documentation for the Youtube Backend application",
+    "version": "1.0.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Healthcheck",
+      "description": "System health monitoring"
     },
-    "host": "localhost:8000",
-    "basePath": "/",
-    "tags": [
-        {
-            "name": "Users",
-            "description": "User management and authentication"
+    {
+      "name": "Users",
+      "description": "User management and authentication"
+    },
+    {
+      "name": "Videos",
+      "description": "Video upload and management"
+    },
+    {
+      "name": "Comments",
+      "description": "Comment on videos and tweets"
+    },
+    {
+      "name": "Likes",
+      "description": "Like and unlike content"
+    },
+    {
+      "name": "Playlists",
+      "description": "Playlist creation and management"
+    },
+    {
+      "name": "Tweets",
+      "description": "Tweet management"
+    },
+    {
+      "name": "Subscriptions",
+      "description": "Subscribe to channels"
+    },
+    {
+      "name": "Dashboard",
+      "description": "Channel dashboard statistics"
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter token in format (Bearer <token>)"
+    }
+  },
+  "paths": {
+    "/api/v1/users/register": {
+      "post": {
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "avatar",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Avatar image"
+          },
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "type": "file",
+            "required": false,
+            "description": "Cover image"
+          },
+          {
+            "name": "fullName",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
         },
-        {
-            "name": "Videos",
-            "description": "Video upload and management"
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/login": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "username": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
         },
-        {
-            "name": "Comments",
-            "description": "Comment on videos and tweets"
-        },
-        {
-            "name": "Likes",
-            "description": "Like and unlike content"
-        },
-        {
-            "name": "Playlists",
-            "description": "Playlist creation and management"
-        },
-        {
-            "name": "Tweets",
-            "description": "Tweet management"
-        },
-        {
-            "name": "Subscriptions",
-            "description": "Subscribe to channels"
-        },
-        {
-            "name": "Dashboard",
-            "description": "Channel dashboard statistics"
-        },
-        {
-            "name": "Healthcheck",
-            "description": "System health monitoring"
-        }
-    ],
-    "schemes": ["https", "http"],
-    "securityDefinitions": {
-        "bearerAuth": {
-            "type": "apiKey",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/logout": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
             "name": "Authorization",
             "in": "header",
-            "description": "Enter token in format (Bearer <token>)"
-        }
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
     },
-    "paths": {
-        "/api/v1/users/register": {
-            "post": {
-                "description": "",
-                "consumes": ["multipart/form-data"],
-                "parameters": [
-                    {
-                        "name": "avatar",
-                        "in": "formData",
-                        "type": "file",
-                        "required": true,
-                        "description": "Avatar image"
-                    },
-                    {
-                        "name": "coverImage",
-                        "in": "formData",
-                        "type": "file",
-                        "required": false,
-                        "description": "Cover image"
-                    },
-                    {
-                        "name": "fullName",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "email",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "username",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "password",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "fullName": {
-                                    "example": "any"
-                                },
-                                "email": {
-                                    "example": "any"
-                                },
-                                "username": {
-                                    "example": "any"
-                                },
-                                "password": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                },
-                "tags": ["Users"]
+    "/api/v1/users/refresh-token": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "refreshToken": {
+                  "example": "any"
+                }
+              }
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
         },
-        "/api/v1/users/login": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "email": {
-                                    "example": "any"
-                                },
-                                "username": {
-                                    "example": "any"
-                                },
-                                "password": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/logout": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/refresh-token": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "refreshToken": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/change-password": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "oldPassword": {
-                                    "example": "any"
-                                },
-                                "newPassword": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/current-user": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/update-account": {
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "fullName": {
-                                    "example": "any"
-                                },
-                                "email": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/avatar": {
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": ""
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/cover-image": {
-            "patch": {
-                "description": "",
-                "consumes": ["multipart/form-data"],
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    },
-                    {
-                        "name": "coverImage",
-                        "in": "formData",
-                        "type": "file",
-                        "required": true,
-                        "description": "New cover image"
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": ""
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/c/{username}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "username",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/users/history": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "Authorization",
-                        "in": "header",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Users"]
-            }
-        },
-        "/api/v1/videos/": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "query",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "sortBy",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "sortType",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "userId",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Videos"]
-            },
-            "post": {
-                "description": "",
-                "consumes": ["multipart/form-data"],
-                "parameters": [
-                    {
-                        "name": "title",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "description",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "videoFile",
-                        "in": "formData",
-                        "type": "file",
-                        "required": true,
-                        "description": "Video file"
-                    },
-                    {
-                        "name": "thumbnail",
-                        "in": "formData",
-                        "type": "file",
-                        "required": true,
-                        "description": "Thumbnail image"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "title": {
-                                    "example": "any"
-                                },
-                                "description": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                },
-                "tags": ["Videos"]
-            }
-        },
-        "/api/v1/videos/{videoId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Videos"]
-            },
-            "delete": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Videos"]
-            },
-            "patch": {
-                "description": "",
-                "consumes": ["multipart/form-data"],
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "title",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "description",
-                        "in": "formData",
-                        "type": "string"
-                    },
-                    {
-                        "name": "thumbnail",
-                        "in": "formData",
-                        "type": "file",
-                        "required": false,
-                        "description": "New thumbnail image"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "title": {
-                                    "example": "any"
-                                },
-                                "description": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Videos"]
-            }
-        },
-        "/api/v1/videos/toggle/publish/{videoId}": {
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Videos"]
-            }
-        },
-        "/api/v1/comments/{videoId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "type": "string"
-                    },
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Comments"]
-            },
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "content": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                },
-                "tags": ["Comments"]
-            }
-        },
-        "/api/v1/comments/c/{commentId}": {
-            "delete": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "commentId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Comments"]
-            },
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "commentId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "content": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Comments"]
-            }
-        },
-        "/api/v1/likes/toggle/v/{videoId}": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Likes"]
-            }
-        },
-        "/api/v1/likes/toggle/c/{commentId}": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "commentId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Likes"]
-            }
-        },
-        "/api/v1/likes/toggle/t/{tweetId}": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "tweetId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Likes"]
-            }
-        },
-        "/api/v1/likes/videos": {
-            "get": {
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Likes"]
-            }
-        },
-        "/api/v1/playlists/": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "name": {
-                                    "example": "any"
-                                },
-                                "description": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                },
-                "tags": ["Playlists"]
-            }
-        },
-        "/api/v1/playlists/{playlistId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "playlistId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Playlists"]
-            },
-            "delete": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "playlistId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Playlists"]
-            },
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "playlistId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": ""
-                    }
-                },
-                "tags": ["Playlists"]
-            }
-        },
-        "/api/v1/playlists/add/{videoId}/{playlistId}": {
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "playlistId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Playlists"]
-            }
-        },
-        "/api/v1/playlists/remove/{videoId}/{playlistId}": {
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "videoId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "playlistId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "default": {
-                        "description": ""
-                    }
-                },
-                "tags": ["Playlists"]
-            }
-        },
-        "/api/v1/playlists/user/{userId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Playlists"]
-            }
-        },
-        "/api/v1/tweets/": {
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "content": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created"
-                    }
-                },
-                "tags": ["Tweets"]
-            }
-        },
-        "/api/v1/tweets/user/{userId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "userId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Tweets"]
-            }
-        },
-        "/api/v1/tweets/{tweetId}": {
-            "delete": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "tweetId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Tweets"]
-            },
-            "patch": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "tweetId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "content": {
-                                    "example": "any"
-                                }
-                            }
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Tweets"]
-            }
-        },
-        "/api/v1/subscriptions/c/{channelId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "channelId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Subscriptions"]
-            },
-            "post": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "channelId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Subscriptions"]
-            }
-        },
-        "/api/v1/subscriptions/u/{subscriberId}": {
-            "get": {
-                "description": "",
-                "parameters": [
-                    {
-                        "name": "subscriberId",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Subscriptions"]
-            }
-        },
-        "/api/v1/dashboard/stats": {
-            "get": {
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Dashboard"]
-            }
-        },
-        "/api/v1/dashboard/videos": {
-            "get": {
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Dashboard"]
-            }
-        },
-        "/api/v1/healthcheck/": {
-            "get": {
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                },
-                "tags": ["Healthcheck"]
-            }
-        }
+        "tags": [
+          "Users"
+        ]
+      }
     },
-    "security": [
-        {
-            "bearerAuth": []
-        }
-    ]
+    "/api/v1/users/change-password": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "oldPassword": {
+                  "example": "any"
+                },
+                "newPassword": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/current-user": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/update-account": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/avatar": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/cover-image": {
+      "patch": {
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "coverImage",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "New cover image"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/c/{username}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/users/history": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/api/v1/videos/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sortType",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Videos"
+        ]
+      },
+      "post": {
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "title",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "videoFile",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Video file"
+          },
+          {
+            "name": "thumbnail",
+            "in": "formData",
+            "type": "file",
+            "required": true,
+            "description": "Thumbnail image"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "Videos"
+        ]
+      }
+    },
+    "/api/v1/videos/{videoId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Videos"
+        ]
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Videos"
+        ]
+      },
+      "patch": {
+        "description": "",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "thumbnail",
+            "in": "formData",
+            "type": "file",
+            "required": false,
+            "description": "New thumbnail image"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Videos"
+        ]
+      }
+    },
+    "/api/v1/videos/toggle/publish/{videoId}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Videos"
+        ]
+      }
+    },
+    "/api/v1/comments/{videoId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Comments"
+        ]
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "Comments"
+        ]
+      }
+    },
+    "/api/v1/comments/c/{commentId}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Comments"
+        ]
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Comments"
+        ]
+      }
+    },
+    "/api/v1/likes/toggle/v/{videoId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Likes"
+        ]
+      }
+    },
+    "/api/v1/likes/toggle/c/{commentId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "commentId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Likes"
+        ]
+      }
+    },
+    "/api/v1/likes/toggle/t/{tweetId}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "tweetId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Likes"
+        ]
+      }
+    },
+    "/api/v1/likes/videos": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Likes"
+        ]
+      }
+    },
+    "/api/v1/playlists/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      }
+    },
+    "/api/v1/playlists/{playlistId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "playlistId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      }
+    },
+    "/api/v1/playlists/add/{videoId}/{playlistId}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "playlistId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      }
+    },
+    "/api/v1/playlists/remove/{videoId}/{playlistId}": {
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "videoId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "playlistId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      }
+    },
+    "/api/v1/playlists/user/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Playlists"
+        ]
+      }
+    },
+    "/api/v1/tweets/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        },
+        "tags": [
+          "Tweets"
+        ]
+      }
+    },
+    "/api/v1/tweets/user/{userId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Tweets"
+        ]
+      }
+    },
+    "/api/v1/tweets/{tweetId}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "tweetId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Tweets"
+        ]
+      },
+      "patch": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "tweetId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "content": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Tweets"
+        ]
+      }
+    },
+    "/api/v1/subscriptions/c/{channelId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "channelId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ]
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "channelId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ]
+      }
+    },
+    "/api/v1/subscriptions/u/{subscriberId}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "subscriberId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Subscriptions"
+        ]
+      }
+    },
+    "/api/v1/dashboard/stats": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    },
+    "/api/v1/dashboard/videos": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    },
+    "/api/v1/healthcheck/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Healthcheck"
+        ]
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ]
 }
