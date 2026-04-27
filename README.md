@@ -97,12 +97,32 @@ Base URL: `/api/v1`
 # Install dependencies
 npm install
 
-# Create .env with:
-# PORT, MONGODB_URI, CORS_ORIGIN
-# ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY
-# REFRESH_TOKEN_SECRET, REFRESH_TOKEN_EXPIRY
-# CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+### Environment Setup
+Create a `.env` file in the root directory and add the following:
+```env
+PORT=8000
+MONGODB_URI=your_mongodb_uri
+CORS_ORIGIN=*
+ACCESS_TOKEN_SECRET=your_access_token_secret
+ACCESS_TOKEN_EXPIRY=1d
+REFRESH_TOKEN_SECRET=your_refresh_token_secret
+REFRESH_TOKEN_EXPIRY=10d
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
 
+### Commands
+```bash
+npm run swagger
+
+# Build the project (if applicable)
+npm run build
+
+# Start the production server
+npm start
+
+# Start the development server
 npm run dev
 ```
 
