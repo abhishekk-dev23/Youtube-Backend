@@ -47,8 +47,7 @@ Base URL: `/api/v1`
 
 | Router                                                                                    | Status             |
 | ----------------------------------------------------------------------------------------- | ------------------ |
-| `/users`                                                                                  | Fully implemented  |
-| `/videos`, `/comments`, `/likes`, `/subscriptions`, `/tweets`, `/playlists`, `/dashboard` | Scaffolded (stubs) |
+| `/users`, `/videos`, `/comments`, `/likes`, `/subscriptions`, `/tweets`, `/playlists`, `/dashboard` | Fully implemented  |
 
 
 ## Setup
