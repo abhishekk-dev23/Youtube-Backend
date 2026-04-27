@@ -50,32 +50,38 @@ src/
 ## Features
 
 ### 👤 User Management
+
 - **Secure Authentication**: Implementation of Access and Refresh Token rotation for secure, persistent sessions.
 - **Profile Management**: Customizable user profiles with avatar and cover image uploads via Cloudinary.
 - **Watch History**: Automatic tracking of user viewing history for a personalized experience.
 - **Account Security**: Secure password hashing with `bcrypt` and structured password update flows.
 
 ### 📹 Video Handling
+
 - **Cloudinary Integration**: Robust file upload pipeline for high-quality video and thumbnail storage.
 - **Video Operations**: Full CRUD (Create, Read, Update, Delete) for video content.
 - **Visibility Control**: Ability to toggle "Published" status to manage video availability.
 - **Analytics**: Real-time tracking of video views and creator-specific metrics.
 
 ### 💬 Social & Interaction
+
 - **Advanced Commenting**: Full system for adding, editing, and deleting comments on any video.
 - **Flexible Liking**: Unified "Like" system for videos, comments, and tweets.
 - **Tweet System**: Short-form text updates for creators to engage with their audience.
 - **Subscription Model**: Real-time channel subscription and subscriber tracking system.
 
 ### 📂 Playlists & Collections
+
 - **Dynamic Playlists**: Users can create, update, and delete custom playlists.
 - **Collection Management**: Easily add or remove videos from existing playlists.
 
 ### 📊 Creator Dashboard
+
 - **Channel Analytics**: Comprehensive view of total video performance, subscriber counts, and like counts.
 - **Video Management**: Dedicated view for creators to manage their entire video catalog.
 
 ### 🔍 Search & Performance
+
 - **Aggregation Pipelines**: High-performance data retrieval using MongoDB aggregation (lookups, grouping, projects).
 - **Pagination**: Optimized data fetching with `mongoose-aggregate-paginate-v2` for a smooth UI experience.
 - **API Documentation**: Fully documented interactive API using **Swagger UI**.
@@ -86,10 +92,9 @@ src/
 
 Base URL: `/api/v1`
 
-| Router                                                                                    | Status             |
-| ----------------------------------------------------------------------------------------- | ------------------ |
-| `/users`, `/videos`, `/comments`, `/likes`, `/subscriptions`, `/tweets`, `/playlists`, `/dashboard` | Fully implemented  |
-
+| Router                                                                                              | Status            |
+| --------------------------------------------------------------------------------------------------- | ----------------- |
+| `/users`, `/videos`, `/comments`, `/likes`, `/subscriptions`, `/tweets`, `/playlists`, `/dashboard` | Fully implemented |
 
 ## Setup
 
@@ -97,32 +102,12 @@ Base URL: `/api/v1`
 # Install dependencies
 npm install
 
-### Environment Setup
-Create a `.env` file in the root directory and add the following:
-```env
-PORT=8000
-MONGODB_URI=your_mongodb_uri
-CORS_ORIGIN=*
-ACCESS_TOKEN_SECRET=your_access_token_secret
-ACCESS_TOKEN_EXPIRY=1d
-REFRESH_TOKEN_SECRET=your_refresh_token_secret
-REFRESH_TOKEN_EXPIRY=10d
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
+# Create .env with:
+# PORT, MONGODB_URI, CORS_ORIGIN
+# ACCESS_TOKEN_SECRET, ACCESS_TOKEN_EXPIRY
+# REFRESH_TOKEN_SECRET, REFRESH_TOKEN_EXPIRY
+# CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
 
-### Commands
-```bash
-npm run swagger
-
-# Build the project (if applicable)
-npm run build
-
-# Start the production server
-npm start
-
-# Start the development server
 npm run dev
 ```
 
